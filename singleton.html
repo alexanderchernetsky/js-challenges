@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Singleton</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #counter-display {
+            margin: 20px 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Singleton Example</h1>
+
+    <div id="counter-display">Counter: 0</div>
+
+    <div>
+        <button type="button" id="btn1">Increment 1</button>
+        <button type="button" id="btn2">Increment 2</button>
+    </div>
+
+    <script type="module">
+        import counter1 from './src/singleton.js';
+        import counter2 from './src/singleton.js';
+
+        const display = document.getElementById('counter-display');
+
+        function updateDisplay() {
+            display.textContent = `Counter: ${counter1.getValue()}`;
+        }
+
+        // Button 1 uses counter1
+        document.getElementById('btn1').addEventListener('click', () => {
+            counter1.increment();
+            updateDisplay();
+            console.log('Button 1 (counter1):', counter1.getValue());
+        });
+
+        // Button 2 uses counter2
+        document.getElementById('btn2').addEventListener('click', () => {
+            counter2.increment();
+            updateDisplay();
+            console.log('Button 2 (counter2):', counter2.getValue());
+        });
+
+        // Initial display
+        updateDisplay();
+
+        // Log to console to verify they're the same instance
+        console.log('counter1 === counter2:', counter1 === counter2);
+    </script>
+</body>
+</html>
