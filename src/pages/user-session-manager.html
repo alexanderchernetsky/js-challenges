@@ -20,19 +20,137 @@
             border: 1px solid #ccc;
             padding: 20px;
             border-radius: 8px;
+            background-color: #fff;
         }
         pre {
             background-color: #f4f4f4;
             padding: 15px;
             border-radius: 5px;
             overflow-x: auto;
+            border: 1px solid #ddd;
         }
         h2 {
             margin-top: 0;
+            color: #2c3e50;
+        }
+        h3 {
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+            margin-top: 20px;
+            color: #34495e;
+        }
+        .task-content {
+            line-height: 1.6;
+        }
+        .task-content h4 {
+            margin-bottom: 10px;
+            color: #2980b9;
+        }
+        .task-content p {
+            margin-bottom: 15px;
+        }
+        .task-content code {
+            background-color: #f8f9fa;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: monospace;
+            border: 1px solid #eaedef;
+        }
+        .task-content h5 {
+            margin-top: 15px;
+            margin-bottom: 5px;
+            color: #2c3e50;
+            font-size: 1rem;
+        }
+        .task-content ul {
+            margin-bottom: 15px;
+            padding-left: 20px;
+        }
+        .task-content li {
+            margin-bottom: 5px;
         }
     </style>
 
     <script type="module">
+        function formatTask(taskText) {
+            const sections = [
+                'Objective',
+                'Real-Life Example',
+                'Class Signature',
+                'Methods',
+                'Example Usage',
+                'Expected Behavior',
+                'Constraints'
+            ];
+
+            let html = taskText;
+
+            // Simple markdown-like formatting
+
+            // 1. Handle headers (Objective, Methods, etc.)
+            sections.forEach(section => {
+                const regex = new RegExp(`^${section}$`, 'gm');
+                html = html.replace(regex, `#### ${section}`);
+            });
+
+            // Let's split by lines and process
+            const lines = html.split('\n');
+            let formattedHtml = '';
+            let inCodeBlock = false;
+            let inList = false;
+
+            for (let i = 0; i < lines.length; i++) {
+                let line = lines[i].trim();
+
+                if (sections.some(s => line === `#### ${s}`)) {
+                    if (inList) { formattedHtml += '</ul>'; inList = false; }
+                    if (inCodeBlock) { formattedHtml += '</code></pre>'; inCodeBlock = false; }
+                    formattedHtml += `<h4>${line.replace('#### ', '')}</h4>`;
+
+                    if (line.includes('Class Signature') || line.includes('Example Usage')) {
+                        formattedHtml += '<pre><code>';
+                        inCodeBlock = true;
+                    }
+                } else if (line.startsWith('- ') || line.startsWith('* ')) {
+                    if (!inList) {
+                        if (inCodeBlock) { formattedHtml += '</code></pre>'; inCodeBlock = false; }
+                        formattedHtml += '<ul>';
+                        inList = true;
+                    }
+                    formattedHtml += `<li>${line.substring(2)}</li>`;
+                } else if (line === '') {
+                    if (inList) { formattedHtml += '</ul>'; inList = false; }
+                    if (inCodeBlock) {
+                        formattedHtml += '\n';
+                    } else {
+                        if (!formattedHtml.endsWith('<br>')) {
+                            formattedHtml += '<br>';
+                        }
+                    }
+                } else {
+                    if (inCodeBlock) {
+                        formattedHtml += lines[i] + '\n';
+                    } else {
+                        if (inList) { formattedHtml += '</ul>'; inList = false; }
+                        // Basic inline code formatting
+                        const lineWithCode = lines[i].replace(/`([^`]+)`/g, '<code>$1</code>')
+                                                     .replace(/(AdvancedUserSessionManager|login|logout|recordActivity|getLastNActivities|getRecentActivities|getMostActiveUsers|userId|activity|limit|maxActivitiesPerUser)/g, '<code>$1</code>');
+
+                        // Check if it's a sub-header (line that ends with a colon and is short)
+                        if (line.endsWith(':') && line.length < 50) {
+                            formattedHtml += `<h5>${lineWithCode}</h5>`;
+                        } else {
+                            formattedHtml += `<p>${lineWithCode}</p>`;
+                        }
+                    }
+                }
+            }
+            if (inList) formattedHtml += '</ul>';
+            if (inCodeBlock) formattedHtml += '</code></pre>';
+
+            return formattedHtml;
+        }
+
         function parseAlgoFile(text) {
             const lines = text.split('\n');
             let task = '';
@@ -40,11 +158,6 @@
             let isSolution = false;
 
             for (let line of lines) {
-                if (line.toLowerCase().startsWith('// class signature') || line.toLowerCase().startsWith('// methods')) {
-                    // Skip these specific headers for the task description if we want,
-                    // or just let them be part of the task.
-                }
-
                 if (line.startsWith('export class') || line.startsWith('class ')) {
                    isSolution = true;
                 }
@@ -81,10 +194,10 @@
             taskH3.textContent = 'Task';
             problemDiv.appendChild(taskH3);
 
-            const taskP = document.createElement('p');
-            taskP.style.whiteSpace = 'pre-wrap';
-            taskP.textContent = task;
-            problemDiv.appendChild(taskP);
+            const taskDiv = document.createElement('div');
+            taskDiv.className = 'task-content';
+            taskDiv.innerHTML = formatTask(task);
+            problemDiv.appendChild(taskDiv);
 
             const solutionH3 = document.createElement('h3');
             solutionH3.textContent = 'Solutions';
