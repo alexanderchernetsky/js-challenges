@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Riverside Technical Challenge</title>
+</head>
+
+<body>
+    <nav><a href="../../index.html">← Back to Home</a></nav>
+    <h3>User Session Manager</h3>
+    <p>A TypeScript-based utility for managing user sessions, including storage and retrieval of session data.</p>
+
+    <div id="algo-container">
+        <!-- Problem will be rendered here -->
+    </div>
+
+    <style>
+        .problem {
+            margin-bottom: 40px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        h2 {
+            margin-top: 0;
+        }
+    </style>
+
+    <script type="module">
+        function parseAlgoFile(text) {
+            const lines = text.split('\n');
+            let task = '';
+            let solution = '';
+            let isSolution = false;
+
+            for (let line of lines) {
+                if (line.toLowerCase().startsWith('// class signature') || line.toLowerCase().startsWith('// methods')) {
+                    // Skip these specific headers for the task description if we want,
+                    // or just let them be part of the task.
+                }
+
+                if (line.startsWith('export class') || line.startsWith('class ')) {
+                   isSolution = true;
+                }
+
+                if (!isSolution) {
+                    if (line.trim().startsWith('//')) {
+                        task += line.replace(/^\/\/\s?/, '') + '\n';
+                    }
+                } else {
+                    if (!line.startsWith('const advancedSessionManager')) {
+                        solution += line + '\n';
+                    } else {
+                        break;
+                    }
+                }
+            }
+            return { task: task.trim(), solution: solution.trim() };
+        }
+
+        async function loadProblem(url, title) {
+            const response = await fetch(url);
+            const text = await response.text();
+            const { task, solution } = parseAlgoFile(text);
+
+            const container = document.getElementById('algo-container');
+            const problemDiv = document.createElement('div');
+            problemDiv.className = 'problem';
+
+            const h2 = document.createElement('h2');
+            h2.textContent = title;
+            problemDiv.appendChild(h2);
+
+            const taskH3 = document.createElement('h3');
+            taskH3.textContent = 'Task';
+            problemDiv.appendChild(taskH3);
+
+            const taskP = document.createElement('p');
+            taskP.style.whiteSpace = 'pre-wrap';
+            taskP.textContent = task;
+            problemDiv.appendChild(taskP);
+
+            const solutionH3 = document.createElement('h3');
+            solutionH3.textContent = 'Solutions';
+            problemDiv.appendChild(solutionH3);
+
+            const pre = document.createElement('pre');
+            pre.textContent = solution;
+            problemDiv.appendChild(pre);
+
+            container.appendChild(problemDiv);
+        }
+
+        loadProblem('../../src/user-session-manager.ts', 'Advanced User Session Manager');
+    </script>
+    <script type="module" src="../../src/user-session-manager.ts"></script>
+</body>
+</html>

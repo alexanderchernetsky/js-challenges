@@ -1,0 +1,56 @@
+[
+  {
+    "title": "USA States & Territories",
+    "description": "Fetch USA states data, filter out territories and northeast states, sort them, and display them in a virtualized list with search and debounce.",
+    "path": "src/pages/usa-states.html",
+    "company": "Aurora Solar"
+  },
+  {
+    "title": "Tic-Tac-Toe (MVC)",
+    "description": "A classic Tic-Tac-Toe game implemented using the Model-View-Controller (MVC) architectural pattern in plain JavaScript.",
+    "path": "src/pages/tic-tac-toe.html",
+    "company": "General"
+  },
+  {
+    "title": "To-Do List (MVC)",
+    "description": "A To-Do list application built with the MVC pattern, supporting adding and deleting tasks.",
+    "path": "src/pages/todo.html",
+    "company": "General"
+  },
+  {
+    "title": "Algo Problems",
+    "description": "A collection of algorithmic challenges implemented in JavaScript, focusing on problem-solving and efficiency.",
+    "path": "src/pages/algo-problems.html",
+    "company": "Box"
+  },
+  {
+    "title": "Cat, Rabbit, Snail Game",
+    "description": "A simple game involving characters like a Cat, Rabbit, and Snail, demonstrating basic game logic and rendering.",
+    "path": "src/pages/cat-rabbit-snail-game.html",
+    "company": "Asana"
+  },
+  {
+    "title": "Count Repeats",
+    "description": "An exercise to count and identify repeated elements within a dataset, showcasing data manipulation techniques.",
+    "path": "src/pages/count-repeats.html",
+    "company": "Fluxon"
+  },
+  {
+    "title": "Plain JS Search",
+    "description": "A live search filter implemented in vanilla JavaScript that filters a list of items as you type.",
+    "path": "src/pages/search.html",
+    "company": "Proxify"
+  },
+  {
+    "title": "Singleton Pattern",
+    "description": "A demonstration of the Singleton design pattern in JavaScript, ensuring a class has only one instance.",
+    "path": "src/pages/singleton.html",
+    "company": "General"
+  },
+  {
+    "title": "User Session Manager",
+    "description": "A TypeScript-based utility for managing user sessions, including storage and retrieval of session data.",
+    "path": "src/pages/user-session-manager.html",
+    "company": "Riverside"
+  }
+]

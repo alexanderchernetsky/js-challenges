@@ -1,4 +1,4 @@
-import ToDoController from "./controllers/ToDoController.js";
+import ToDoController from "./ToDo/ToDoController.js";
 
 const todoController = new ToDoController();
 

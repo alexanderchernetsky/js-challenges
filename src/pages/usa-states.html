@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Aurora Technical Challenge</title>
+    </head>
+
+    <body>
+        <nav><a href="../../index.html">← Back to Home</a></nav>
+        <h3>USA States & Territories</h3>
+        <p>Fetch USA states data, filter out territories and northeast states, sort them, and display them in a virtualized list with search and debounce.</p>
+
+        <fieldset>
+            <label for="search-states">Find a state:</label>
+            <input type="text" id="search-states">
+        </fieldset>
+
+        <div id="scroll-container" style="height: 300px; overflow-y: auto; border: 1px solid #ccc;">
+            <ul id="states-list" style="position: relative; margin: 0; padding: 0; list-style: none;"></ul>
+        </div>
+
+        <script src="../../src/usa-states.js"></script>
+    </body>
+</html>

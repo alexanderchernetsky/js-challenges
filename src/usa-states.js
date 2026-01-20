@@ -1,5 +1,5 @@
 /*
- * Aurora Technical Exercise
+ * Aurora Solar Technical Exercise
  *
  * Instructions:
  *

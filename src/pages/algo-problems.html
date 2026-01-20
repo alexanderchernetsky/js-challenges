@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Algo problems</title>
+</head>
+<body>
+    <nav><a href="../../index.html">← Back to Home</a></nav>
+    <h1>Algo problems</h1>
+    <p>A collection of algorithmic challenges implemented in JavaScript, focusing on problem-solving and efficiency.</p>
+
+    <div id="algo-container">
+        <!-- Problems will be rendered here -->
+    </div>
+
+    <style>
+        .problem {
+            margin-bottom: 40px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        h2 {
+            margin-top: 0;
+        }
+    </style>
+
+    <script type="module">
+        function parseAlgoFile(text) {
+            const lines = text.split('\n');
+            let task = '';
+            let solution = '';
+            let isSolution = false;
+
+            for (let line of lines) {
+                if (line.toLowerCase().startsWith('// solution') || line.toLowerCase().startsWith('// solution')) {
+                   isSolution = true;
+                }
+
+                if (!isSolution) {
+                    if (line.startsWith('//')) {
+                        task += line.replace(/^\/\/\s?/, '') + '\n';
+                    }
+                } else {
+                    if (!line.startsWith('// testing')) {
+                        solution += line + '\n';
+                    } else {
+                        break;
+                    }
+                }
+            }
+            return { task: task.trim(), solution: solution.trim() };
+        }
+
+        async function loadProblem(url, title) {
+            const response = await fetch(url);
+            const text = await response.text();
+            const { task, solution } = parseAlgoFile(text);
+
+            const container = document.getElementById('algo-container');
+            const problemDiv = document.createElement('div');
+            problemDiv.className = 'problem';
+
+            const h2 = document.createElement('h2');
+            h2.textContent = title;
+            problemDiv.appendChild(h2);
+
+            const taskH3 = document.createElement('h3');
+            taskH3.textContent = 'Task';
+            problemDiv.appendChild(taskH3);
+
+            const taskP = document.createElement('p');
+            taskP.style.whiteSpace = 'pre-wrap';
+            taskP.textContent = task;
+            problemDiv.appendChild(taskP);
+
+            const solutionH3 = document.createElement('h3');
+            solutionH3.textContent = 'Solutions';
+            problemDiv.appendChild(solutionH3);
+
+            const pre = document.createElement('pre');
+            pre.textContent = solution;
+            problemDiv.appendChild(pre);
+
+            container.appendChild(problemDiv);
+        }
+
+        loadProblem('../../src/algo-problem-1.js', 'Problem 1: Single Number');
+        loadProblem('../../src/algo-problem-2.js', 'Problem 2: Squares of a Sorted Array');
+    </script>
+</body>
+<!-- Use a relative path so JetBrains built-in server resolves under the project base URL -->
+<script type="module" src="../../src/algo-problem-1.js"></script>
+<script type="module" src="../../src/algo-problem-2.js"></script>
+</html>
