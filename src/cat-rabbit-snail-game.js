@@ -1,6 +1,33 @@
 // Asana technical interview
 // Cats, Rabbits, Snails game
-
+//
+// Objective
+// Implement a game board where two players ('A' and 'B') control different characters (Cats, Rabbits, Snails) with unique movement rules and interactions.
+//
+// Game Board
+// The game is played on a 7x7 grid.
+//
+// Characters and Movement Rules:
+// 1. Cats:
+//    - Move strictly horizontally or vertically.
+//    - Can move up to 3 steps in a single move.
+//    - Movement is blocked by any character in its path.
+//    - (To be implemented) Can eat enemy Snails.
+// 2. Rabbits:
+//    - (To be implemented) Unique movement pattern (e.g., diagonal or L-shape).
+// 3. Snails:
+//    - (To be implemented) Slow movement (1 step at a time).
+//
+// Gameplay Mechanics:
+// - Players take turns moving one of their characters.
+// - Characters cannot move through or land on cells occupied by friendly characters.
+// - If a character moves into a cell occupied by an enemy it can "eat" (based on specific rules), the enemy is removed from the board.
+// - The goal is to eliminate all enemy characters or reach the opponent's side (specific winning conditions to be defined).
+//
+// Constraints:
+// - Characters must stay within the 7x7 board boundaries.
+// - Implement a Model-View-Controller (MVC) pattern for the game logic and UI.
+//
 // [   0 1 2 3 4 5 6
 //  0 [0,0,0,0,0,0,0],
 //  1 [0,0,0,0,0,0,0],

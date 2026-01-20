@@ -24,12 +24,6 @@
     "company": "Box"
   },
   {
-    "title": "Cat, Rabbit, Snail Game",
-    "description": "A simple game involving characters like a Cat, Rabbit, and Snail, demonstrating basic game logic and rendering.",
-    "path": "src/pages/cat-rabbit-snail-game.html",
-    "company": "Asana"
-  },
-  {
     "title": "Count Repeats",
     "description": "An exercise to count and identify repeated elements within a dataset, showcasing data manipulation techniques.",
     "path": "src/pages/count-repeats.html",
@@ -52,5 +46,12 @@
     "description": "A TypeScript-based utility for managing user sessions, including storage and retrieval of session data.",
     "path": "src/pages/user-session-manager.html",
     "company": "Riverside"
+  },
+  {
+    "title": "Cat, Rabbit, Snail Game",
+    "description": "A simple game involving characters like a Cat, Rabbit, and Snail, demonstrating basic game logic and rendering.",
+    "path": "src/pages/cat-rabbit-snail-game.html",
+    "company": "Asana",
+    "status": "todo"
   }
 ]

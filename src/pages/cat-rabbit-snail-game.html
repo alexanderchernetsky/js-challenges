@@ -8,5 +8,208 @@
     <nav><a href="../../index.html">&larr; Back to Home</a></nav>
     <h1>Cat, Rabbit, Snail Game</h1>
     <p>A simple game involving characters like a Cat, Rabbit, and Snail, demonstrating basic game logic and rendering.</p>
-    <script type="module" src="../../src/game.js"></script>
+
+    <div id="algo-container">
+        <!-- Problem will be rendered here -->
+    </div>
+
+    <style>
+        .problem {
+            margin-bottom: 40px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #fff;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid #ddd;
+        }
+        h2 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        h3 {
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+            margin-top: 20px;
+            color: #34495e;
+        }
+        .task-content {
+            line-height: 1.6;
+        }
+        .task-content h4 {
+            margin-bottom: 10px;
+            color: #2980b9;
+            margin-top: 20px;
+        }
+        .task-content p {
+            margin-bottom: 15px;
+        }
+        .task-content code {
+            background-color: #f8f9fa;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: monospace;
+            border: 1px solid #eaedef;
+        }
+        .task-content h5 {
+            margin-top: 15px;
+            margin-bottom: 5px;
+            color: #2c3e50;
+            font-size: 1rem;
+        }
+        .task-content ul {
+            margin-bottom: 15px;
+            padding-left: 20px;
+        }
+        .task-content li {
+            margin-bottom: 5px;
+        }
+    </style>
+
+    <script type="module">
+        function formatTask(taskText) {
+            const sections = [
+                'Objective',
+                'Game Board',
+                'Characters and Movement Rules:',
+                'Gameplay Mechanics:',
+                'Constraints:'
+            ];
+
+            let html = taskText;
+
+            // 1. Handle headers
+            sections.forEach(section => {
+                const regex = new RegExp(`^${section}$`, 'gm');
+                html = html.replace(regex, `#### ${section}`);
+            });
+
+            // Let's split by lines and process
+            const lines = html.split('\n');
+            let formattedHtml = '';
+            let inList = false;
+
+            for (let i = 0; i < lines.length; i++) {
+                let line = lines[i].trim();
+
+                if (line.startsWith('####')) {
+                    if (inList) {
+                        formattedHtml += '</ul>';
+                        inList = false;
+                    }
+                    formattedHtml += `<h4>${line.replace('####', '').trim()}</h4>`;
+                } else if (line.startsWith('-') || line.startsWith('*') || (line.match(/^\d+\./) && line.includes(':'))) {
+                     // Detect list items or numbered items that act as subheaders
+                     if (line.match(/^\d+\./) && line.includes(':')) {
+                         if (inList) {
+                             formattedHtml += '</ul>';
+                             inList = false;
+                         }
+                         formattedHtml += `<h5>${line}</h5>`;
+                     } else {
+                        if (!inList) {
+                            formattedHtml += '<ul>';
+                            inList = true;
+                        }
+                        formattedHtml += `<li>${line.replace(/^[-*]\s?/, '')}</li>`;
+                     }
+                } else if (line.startsWith('1.') || line.startsWith('2.') || line.startsWith('3.')) {
+                    if (inList) {
+                        formattedHtml += '</ul>';
+                        inList = false;
+                    }
+                    formattedHtml += `<h5>${line}</h5>`;
+                }
+                else if (line === '') {
+                    if (inList) {
+                        formattedHtml += '</ul>';
+                        inList = false;
+                    }
+                    formattedHtml += '<br/>';
+                } else {
+                    if (inList) {
+                        formattedHtml += '</ul>';
+                        inList = false;
+                    }
+                    formattedHtml += `<p>${line}</p>`;
+                }
+            }
+
+            if (inList) {
+                formattedHtml += '</ul>';
+            }
+
+            // Inline code highlighting (very basic)
+            formattedHtml = formattedHtml.replace(/'([^']+)'/g, '<code>$1</code>');
+            formattedHtml = formattedHtml.replace(/(\b[A-Za-z]+Player\b|\b[A-Za-z]+Manager\b)/g, '<code>$1</code>');
+
+            return formattedHtml;
+        }
+
+        async function loadProblem() {
+            const response = await fetch('../../src/cat-rabbit-snail-game.js');
+            const text = await response.text();
+
+            // Extract the task (initial comments)
+            const lines = text.split('\n');
+            let taskText = '';
+            let solutionText = '';
+            let isTask = true;
+
+            for (let line of lines) {
+                if (isTask && line.startsWith('//')) {
+                    const cleanLine = line.replace(/^\/\/\s?/, '');
+                    // Stop if we hit the board representation
+                    if (cleanLine.startsWith('[')) {
+                        isTask = false;
+                        continue;
+                    }
+                    taskText += cleanLine + '\n';
+                } else {
+                    isTask = false;
+                    // Filter out testing section at the end
+                    if (!line.startsWith('const cat1')) {
+                        solutionText += line + '\n';
+                    } else {
+                        break;
+                    }
+                }
+            }
+
+            const container = document.getElementById('algo-container');
+            const problemDiv = document.createElement('div');
+            problemDiv.className = 'problem';
+
+            const h2 = document.createElement('h2');
+            h2.textContent = 'Game Rules & Logic';
+            problemDiv.appendChild(h2);
+
+            const taskH3 = document.createElement('h3');
+            taskH3.textContent = 'Task';
+            problemDiv.appendChild(taskH3);
+
+            const taskContent = document.createElement('div');
+            taskContent.className = 'task-content';
+            taskContent.innerHTML = formatTask(taskText.trim());
+            problemDiv.appendChild(taskContent);
+
+            const solutionH3 = document.createElement('h3');
+            solutionH3.textContent = 'Implementation (Draft)';
+            problemDiv.appendChild(solutionH3);
+
+            const pre = document.createElement('pre');
+            pre.textContent = solutionText.trim();
+            problemDiv.appendChild(pre);
+
+            container.appendChild(problemDiv);
+        }
+
+        loadProblem();
+    </script>
+    <script type="module" src="../../src/cat-rabbit-snail-game.js"></script>
 </body>

@@ -62,6 +62,18 @@
             font-weight: 500;
             margin-bottom: 15px;
         }
+        .challenge-status-todo {
+            display: inline-block;
+            background-color: #fff3e0;
+            color: #ef6c00;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+            margin-left: 10px;
+            text-transform: uppercase;
+        }
         .challenge-card a {
             display: inline-block;
             text-decoration: none;
@@ -87,16 +99,23 @@
     <script>
         async function loadChallenges() {
             try {
-                const response = await fetch('./src/pages/coding-challenges.json');
+                const response = await fetch('./src/coding-challenges.json');
                 const challenges = await response.json();
                 const listContainer = document.getElementById('challenge-list');
 
                 challenges.forEach(challenge => {
                     const card = document.createElement('div');
                     card.className = 'challenge-card';
+
+                    let statusBadge = '';
+                    if (challenge.status === 'todo') {
+                        statusBadge = `<span class="challenge-status-todo">TODO</span>`;
+                    }
+
                     card.innerHTML = `
                         <h2>${challenge.title}</h2>
                         <span class="challenge-company">${challenge.company}</span>
+                        ${statusBadge}
                         <p>${challenge.description}</p>
                         <a href="${challenge.path}">View Challenge</a>
                     `;
