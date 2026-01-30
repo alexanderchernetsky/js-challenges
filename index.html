@@ -74,6 +74,17 @@
             margin-left: 10px;
             text-transform: uppercase;
         }
+        .challenge-type {
+            display: inline-block;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+            margin-left: 10px;
+        }
         .challenge-card a {
             display: inline-block;
             text-decoration: none;
@@ -112,9 +123,20 @@
                         statusBadge = `<span class="challenge-status-todo">TODO</span>`;
                     }
 
+                    let typeBadge = '';
+                    if (challenge.type) {
+                        typeBadge = `<span class="challenge-type">${challenge.type}</span>`;
+                    }
+
+                    let companyBadge = '';
+                    if (challenge.company) {
+                        companyBadge = `<span class="challenge-company">${challenge.company}</span>`;
+                    }
+
                     card.innerHTML = `
                         <h2>${challenge.title}</h2>
-                        <span class="challenge-company">${challenge.company}</span>
+                        ${companyBadge}
+                        ${typeBadge}
                         ${statusBadge}
                         <p>${challenge.description}</p>
                         <a href="${challenge.path}">View Challenge</a>

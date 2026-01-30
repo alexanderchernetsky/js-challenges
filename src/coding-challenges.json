@@ -9,43 +9,55 @@
     "title": "Tic-Tac-Toe (MVC)",
     "description": "A classic Tic-Tac-Toe game implemented using the Model-View-Controller (MVC) architectural pattern in plain JavaScript.",
     "path": "src/pages/tic-tac-toe.html",
-    "company": "General"
+    "type": "Software architectural patterns"
   },
   {
     "title": "To-Do List (MVC)",
     "description": "A To-Do list application built with the MVC pattern, supporting adding and deleting tasks.",
     "path": "src/pages/todo.html",
-    "company": "General"
+    "type": "Software architectural patterns"
   },
   {
-    "title": "Algo Problems",
-    "description": "A collection of algorithmic challenges implemented in JavaScript, focusing on problem-solving and efficiency.",
-    "path": "src/pages/algo-problems.html",
-    "company": "Box"
+    "title": "Single Number",
+    "description": "Given a non-empty array of integers nums, every element appears twice except for one. Find that single one using bit manipulation.",
+    "path": "src/pages/single-number.html",
+    "company": "Box",
+    "type": "Algorithms"
+  },
+  {
+    "title": "Squares of a Sorted Array",
+    "description": "Given an integer array nums sorted in non-decreasing order, return an array of the squares of each number sorted in non-decreasing order.",
+    "path": "src/pages/squares-sorted-array.html",
+    "company": "Box",
+    "type": "Algorithms"
   },
   {
     "title": "Count Repeats",
     "description": "An exercise to count and identify repeated elements within a dataset, showcasing data manipulation techniques.",
     "path": "src/pages/count-repeats.html",
-    "company": "Fluxon"
+    "company": "Fluxon",
+    "type": "Algorithms"
   },
   {
     "title": "Plain JS Search",
     "description": "A live search filter implemented in vanilla JavaScript that filters a list of items as you type.",
     "path": "src/pages/search.html",
-    "company": "Proxify"
+    "company": "Proxify",
+    "type": "DOM Manipulation"
   },
   {
     "title": "Singleton Pattern",
     "description": "A demonstration of the Singleton design pattern in JavaScript, ensuring a class has only one instance.",
     "path": "src/pages/singleton.html",
-    "company": "General"
+    "type": "Design patterns"
   },
   {
     "title": "User Session Manager",
     "description": "A TypeScript-based utility for managing user sessions, including storage and retrieval of session data.",
     "path": "src/pages/user-session-manager.html",
-    "company": "Riverside"
+    "company": "Riverside",
+    "type": "Algorithms",
+    "status": "todo"
   },
   {
     "title": "Cat, Rabbit, Snail Game",
@@ -58,12 +70,19 @@
     "title": "Find Rectangle",
     "description": "Given a 2D array of 0s and 1s, identify the coordinates of the single solid rectangle made of 1s.",
     "path": "src/pages/findRectangle.html",
-    "company": "D3"
+    "company": "D3",
+    "type": "Algorithms"
   },
   {
     "title": "Observer Pattern",
     "description": "Practice implementing the Observer design pattern. Create a subject that notifies multiple observers of state changes.",
     "path": "src/pages/observer.html",
-    "company": "General"
+    "type": "Design patterns"
+  },
+  {
+    "title": "Merge Sort Algorithm",
+    "description": "Implementation of the Merge Sort algorithm, a divide-and-conquer approach to sorting arrays efficiently.",
+    "path": "src/pages/merge-sort.html",
+    "type": "Algorithms"
   }
 ]
