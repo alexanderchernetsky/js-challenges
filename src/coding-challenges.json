@@ -90,5 +90,11 @@
     "description": "Implement withTiming and withCallCount functions that add measuring behavior without modifying logic.",
     "path": "src/pages/decorator.html",
     "type": "Design patterns"
+  },
+  {
+    "title": "Hash Table Implementation",
+    "description": "Create a Hash Table using only arrays, implementing set, get, remove, and keys methods with collision handling.",
+    "path": "src/pages/hash-table.html",
+    "type": "Algorithms"
   }
 ]
